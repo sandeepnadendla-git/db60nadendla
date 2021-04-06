@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    div(class="container-fluid")
+        div(class="row")
+            -
+                let Bear = [
+                    {
+                        "Color": "White",
+                        "Bread": "Polar Bear",
+                        "Age": 8
+                    },
+                    {
+                        "Color": "Brown",
+                        "Bread": "Brown Bear",
+                        "Age": 11
+                    },
+                    {
+                        "Color": "Black",
+                        "Bread": "American Black Bear",
+                        "Age": 10
+                    },
+                    {
+                        "Color": "Black",
+                        "Bread": "Sloth bear",
+                        "Age": 17
+                    },
+                ]
+            each item,index in Bear
+                div(class="col-sm-2" onClick="buy("+ index +")") #{item.Color}
+                div(class="col-sm-2" onClick="buy("+ index +")") #{item.Bread}
+                div(class="col-sm-2" onClick="buy("+ index +")") #{item.Age} 
+    script.     
+        function buy(itemNo)
+        {
+            alert(`You purchased item ${itemNo+1}`)
+        } 
+
+
+
+

@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  p Greetings and Welcome to #{title}
+  button(type='button' class='btn btn-success' onClick='update()') Press Me
+  div(id="target") Value now 0
+  a(href='/Bear') Link to Bear page
+
+
+  script. 
+    var client_count = 0;
+      function update() {
+        client_count++;
+          document.getElementById("target").innerHTML=`Value now ${client_count}`;
+      }
+
