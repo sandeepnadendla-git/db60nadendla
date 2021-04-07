@@ -1,10 +1,10 @@
 var Bear = require('../models/Bear');
 // List of all Bears
-exports.Bear_list =async  function (req, res) {
+exports.Bear_list = async function (req, res) {
     try {
         var data = await Bear.find({});
 
-        res.send("The data is \n" + data);
+        res.send(data);
     } catch (err) {
         res.status(500);
 
@@ -27,3 +27,33 @@ exports.Bear_delete = function (req, res) {
 exports.Bear_update_put = function (req, res) {
     res.send('NOT IMPLEMENTED: Bear update PUT' + req.params.id);
 };
+// VIEWS
+// Handle a show all view
+exports.bear_view_all_Page = async function (req, res) {
+    try {
+        theBear = await Bear.find();
+        res.render('Bear', { title: 'Bear Search Results', results: theBear });
+    }
+    catch (err) {
+        res.error(500, `{"error": ${err}}`);
+    }
+};
+
+// Handle Bear create on POST.
+exports.Bear_create_post = async function (req, res) {
+    console.log(req.body);
+    let document = new Bear();
+    // We are looking for a body, since POST does not have query parameters.
+    // Even though bodies can be in many different formats, we will be picky
+    // and require that it be a json object
+    // {"costumetype":"goat", "cost":12, "size":"large"}
+    document.Color = req.body.Color;
+    document.Bread = req.body.Bread;
+    document.Age = req.body.Age;
+    try {
+      let result = await document.save();
+      res.send(result);
+    } catch (err) {
+      res.error(500, `{"error": ${err}}`);
+    }
+  };

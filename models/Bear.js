@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 
 
 const bearSchema = mongoose.Schema({
-    color: String,
-    bread: String,
-    age: Number
+    Color: String,
+    Bread: String,
+    Age: Number
 })
 module.exports = mongoose.model("Bear", bearSchema)

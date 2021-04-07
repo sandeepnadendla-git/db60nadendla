@@ -6,28 +6,8 @@ block content
     div(class="container-fluid")
         div(class="row")
             -
-                let Bear = [
-                    {
-                        "Color": "White",
-                        "Bread": "Polar Bear",
-                        "Age": 8
-                    },
-                    {
-                        "Color": "Brown",
-                        "Bread": "Brown Bear",
-                        "Age": 11
-                    },
-                    {
-                        "Color": "Black",
-                        "Bread": "American Black Bear",
-                        "Age": 10
-                    },
-                    {
-                        "Color": "Black",
-                        "Bread": "Sloth bear",
-                        "Age": 17
-                    },
-                ]
+             let Bear = results;
+             console.log(Bear)
             each item,index in Bear
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Color}
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Bread}

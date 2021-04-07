@@ -29,9 +29,9 @@ db.once("open", function () {
 async function recreateDB() {
   // Delete everything
   await Bear.deleteMany();
-  let instance1 = new Bear({color: "White", bread: 'Polar Bear', age: 8  });
-  let instance2 = new Bear({color: "Brown", bread: 'Brown Bear', age: 11  });
-  let instance3 = new Bear({color: "Black", bread: 'American Black Bear', age: 10  });
+  let instance1 = new Bear({Color: "White", Bread: 'Polar Bear', Age: 8  });
+  let instance2 = new Bear({Color: "Brown", Bread: 'Brown Bear', Age: 11  });
+  let instance3 = new Bear({Color: "Black", Bread: 'American Black Bear', Age: 10  });
   instance1.save(function (err, doc) {
       if (err) return console.error(err);
       console.log("First object saved")
