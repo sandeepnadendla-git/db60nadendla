@@ -67,3 +67,22 @@ exports.Bear_create_post = async function (req, res) {
         res.error(500, `{"error": ${err}}`);
     }
 };
+
+// Handle Bear update form on PUT.
+exports.Bear_update_put = async function (req, res) {
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+    try {
+        let toUpdate = await Bear.findById(req.params.id)
+        // Do updates of properties
+        if (req.body.Color) toUpdate.Color = req.body.Color;
+        if (req.body.Bread) toUpdate.Bread = req.body.Bread;
+        if (req.body.Age) toUpdate.Age = req.body.Age;
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+    }
+
+};
