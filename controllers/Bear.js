@@ -11,9 +11,19 @@ exports.Bear_list = async function (req, res) {
         res.send(`{"error": ${err}}`);
     }
 };
+
+
+
 // for a specific Bear.
-exports.Bear_detail = function (req, res) {
-    res.send('NOT IMPLEMENTED: Bear detail: ' + req.params.id);
+exports.Bear_detail = async function (req, res) {
+    console.log("detail" + req.params.id)
+    try {
+        result = await Bear.findById(req.params.id)
+        res.send(result)
+    } catch (error) {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
 // Handle Bear create on POST.
 exports.Bear_create_post = function (req, res) {
@@ -51,9 +61,9 @@ exports.Bear_create_post = async function (req, res) {
     document.Bread = req.body.Bread;
     document.Age = req.body.Age;
     try {
-      let result = await document.save();
-      res.send(result);
+        let result = await document.save();
+        res.send(result);
     } catch (err) {
-      res.error(500, `{"error": ${err}}`);
+        res.error(500, `{"error": ${err}}`);
     }
-  };
+};
