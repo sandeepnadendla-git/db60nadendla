@@ -18,3 +18,5 @@ router.get('/Bear/:id', Bear_controller.Bear_detail);
 // GET request for list of all Bear items.
 router.get('/Bear', Bear_controller.Bear_list);
 module.exports = router;
+
+

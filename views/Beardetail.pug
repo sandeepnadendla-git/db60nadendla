@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h1= title
+
+    - let Bearid = toShow._id
+    - let BearColor = toShow.Color
+    - let BearBread = toShow.Bread
+    - let BearAge = toShow.Age
+    div
+        div.row
+            div(class='BearAttr mr-3') Bear ID is:
+            div #{Bearid}
+        div.row
+            div(class='BearAttr mr-3') Bear Color is:
+            div #{BearColor}
+        div.row
+            div(class='BearAttr mr-3') Bear Bread is:
+            div #{BearBread}
+        div.row
+            div(class='BearAttr mr-3') Bear Age is:
+            div #{BearAge}
+
+

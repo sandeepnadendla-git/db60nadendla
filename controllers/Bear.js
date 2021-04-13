@@ -86,3 +86,31 @@ exports.Bear_update_put = async function (req, res) {
     }
 
 };
+
+// Handle Bear delete on DELETE.
+exports.Bear_delete = async function (req, res) {
+    console.log("delete " + req.params.id)
+    try {
+        result = await Bear.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } catch (err) {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
+};
+
+// Handle a show one view with id specified by query
+exports.Bear_view_one_Page = async function (req, res) {
+    console.log("single view for id " + req.params.id)
+    try {
+        result = await Bear.findById(req.params.id)
+        res.render('beardetail',
+            { title: 'Bear Detail', toShow: result });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
