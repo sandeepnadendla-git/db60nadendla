@@ -102,9 +102,9 @@ exports.Bear_delete = async function (req, res) {
 
 // Handle a show one view with id specified by query
 exports.Bear_view_one_Page = async function (req, res) {
-    console.log("single view for id " + req.params.id)
+    console.log("single view for id " + req.query.id)
     try {
-        result = await Bear.findById(req.params.id)
+        result = await Bear.findById(req.query.id)
         res.render('beardetail',
             { title: 'Bear Detail', toShow: result });
     }
