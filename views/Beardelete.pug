@@ -1,0 +1,51 @@
+extends layout
+
+block content
+    h1= title
+
+    - let Bearid = toShow._id
+    - let BearColor = toShow.Color
+    - let BearBread = toShow.Bread
+    - let BearAge = toShow.Age
+
+    div
+        div.row
+            div(class='BearAttr mr-3') Bear ID is:
+            div(id="Bearid") #{Bearid}
+        div.row
+            div(class='BearAttr mr-3') Bear Color is:
+            div #{BearColor}
+        div.row
+            div(class='BearAttr mr-3') Bear Bread is:
+            div #{BearBread}
+        div.row
+            div(class='BearAttr mr-3') Bear Age  is:
+            div #{BearAge}
+        
+        
+        button(class='btn btn-danger btn-md m-auto' type="Submit" onclick=`deleteBear()`) Delete
+        button(class="btn btn-secondary m-2" onclick="cancel()") Cancel  
+
+    script.
+        function cancel() {   
+            // Go back to the home page for the costume collection     
+            window.location.href='/Bear'   
+        }
+
+    script.
+        function deleteBear() {
+            let value=document.getElementById("Bearid").innerHTML;
+            console.log(value)
+            // TODO do something here to show user that form is being submitted
+            fetch('/resource/Bear/' + value, {
+                method: 'DELETE'
+            }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Delete succeded")
+                    // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Delete failed " + error )
+            });
+        };
