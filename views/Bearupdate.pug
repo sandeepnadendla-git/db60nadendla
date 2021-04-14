@@ -4,9 +4,9 @@ block content
     h1= title
 
     - let Bearid = toShow._id
-    - let Beartype = toShow.Beartype
-    - let Bearcost = toShow.cost
-    - let Bearize = toShow.size
+    - let BearColor = toShow.Color
+    - let BearBread = toShow.Bread
+    - let BearAge = toShow.Age
 
     div.row(class='mb-2')
         div.mr-1 ID is
@@ -14,14 +14,14 @@ block content
     - let actionid = "/resource/Bear/" + Bearid
     form(id='BearForm', action= actionid, method="PUT")
         div.form-group
-            label.BearAttr(for='Beartype') Bear type
-            input#Beartype(type='text' name='Beartype', value= Beartype )
+            label.BearAttr(for='Color') Bear Color
+            input#BearColor(type='text' name='Color', value= BearColor )
         div.form-group
-            label.BearAttr(for='size') Bear size
-            input#size(type='text' name='size', value= Bearize )
+            label.BearAttr(for='Bread') Bear Bread
+            input#Bread(type='text' name='Bread', value= BearBread )
         div.form-group
-            label.BearAttr(for='cost') Bear cost
-            input#cost(type='number' name='cost', value= Bearcost )
+            label.BearAttr(for='Age') Bear cost
+            input#Age(type='number' name='Age', value= BearAge )
         input(type="submit")
 
     script.
