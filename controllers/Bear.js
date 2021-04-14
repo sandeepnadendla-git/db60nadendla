@@ -56,7 +56,7 @@ exports.Bear_create_post = async function (req, res) {
     // We are looking for a body, since POST does not have query parameters.
     // Even though bodies can be in many different formats, we will be picky
     // and require that it be a json object
-    // {"costumetype":"goat", "cost":12, "size":"large"}
+    // {"Beartype":"goat", "cost":12, "size":"large"}
     document.Color = req.body.Color;
     document.Bread = req.body.Bread;
     document.Age = req.body.Age;
@@ -109,6 +109,35 @@ exports.Bear_view_one_Page = async function (req, res) {
             { title: 'Bear Detail', toShow: result });
     }
     catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+// Handle building the view for creating a Bear.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.Bear_create_Page = function (req, res) {
+    console.log("create view")
+    try {
+        res.render('Bearcreate', { title: 'Bear Create' });
+    }
+    catch (err) {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+
+// Handle building the view for updating a bear.
+// query provides the id
+exports.Bear_update_Page =  async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+        let result = await Bear.findById(req.query.id)
+        res.render('Bearupdate', { title: 'Bear Update', toShow: result });
+    }
+    catch(err){
         res.status(500)
         res.send(`{'error': '${err}'}`);
     }
