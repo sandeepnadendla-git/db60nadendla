@@ -2,11 +2,14 @@ extends layout
 
 block content
     h1= title
-
-    - let Bearid = toShow._id
-    - let BearColor = toShow.Color
-    - let BearBread = toShow.Bread
-    - let BearAge = toShow.Age
+    
+    if (toShow == null)
+        h2 No instance to Delete
+    else
+      - let Bearid = toShow._id
+      - let BearColor = toShow.Color
+      - let BearBread = toShow.Bread
+      - let BearAge = toShow.Age
 
     div
         div.row

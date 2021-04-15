@@ -3,17 +3,17 @@ extends layout
 block content
     h1= title
 
-    form(id='BearForm' action="/resource/Bear" method="POST")
+    form(id='BearForm' class ='crtForm' action="/resource/Bear" method="POST")
         div.form-group
-            label.BearAttr(for='Color') Bear Color
-            input#Beartype(type='text' name='Color')
+            label.CrtLabel(for='Color') Bear Color:
+            input#Beartype(type='text' class='form-control' name='Color')
         div.form-group
-            label.BearAttr(for='Bread') Bear Bread
-            input#size(type='text' name='Bread')
+            label.CrtLabel(for='Bread') Bear Bread:
+            input#size(type='text' class='form-control' name='Bread')
         div.form-group
-            label.BearAttr(for='Age') Bear Age
-            input#cost(type='number' name='Age')
-        input(type="submit")
+            label.CrtLabel(for='Age') Bear Age:
+            input#cost(type='number' class='form-control' name='Age')
+        input(type="submit" class="btn btn-success")
 
     script.
         document.forms['BearForm'].addEventListener('submit', (event) => {

@@ -2,14 +2,17 @@ extends layout
 
 block content
     h1= title
-
-    - let Bearid = toShow._id
-    - let BearColor = toShow.Color
-    - let BearBread = toShow.Bread
-    - let BearAge = toShow.Age
+    
+    if (toShow == null)
+        h2 No instance to update
+    else
+      - let Bearid = toShow._id
+      - let BearColor = toShow.Color
+      - let BearBread = toShow.Bread
+      - let BearAge = toShow.Age
 
     div.row(class='mb-2')
-        div.mr-1 ID is
+        div.mr-1
         div #{Bearid}
     - let actionid = "/resource/Bear/" + Bearid
     form(id='BearForm', action= actionid, method="PUT")

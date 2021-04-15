@@ -3,10 +3,15 @@ extends layout
 block content
     h1= title
 
-    - let Bearid = toShow._id
-    - let BearColor = toShow.Color
-    - let BearBread = toShow.Bread
-    - let BearAge = toShow.Age
+     if (toShow == null)
+        h2 No instance to show
+     else
+        - let Bearid = toShow._id
+        - let BearColor = toShow.Color
+        - let BearBread = toShow.Bread
+        - let BearAge = toShow.Age
+
+
     div
         div.row
             div(class='BearAttr mr-3') Bear ID is:
