@@ -4,15 +4,21 @@ block content
     h1= title
     p Welcome to #{title}
     div(class="container-fluid")
-        div(class="row")
+        div(class="row m-1")
             -
              let Bear = results;
              console.log(Bear)
             each item,index in Bear
+              - let destination = `dispatch(\"/Bear/update?id=${item._id}\")`
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Color}
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Bread}
-                div(class="col-sm-2" onClick="buy("+ index +")") #{item.Age} 
-    script.     
+                div(class="col-sm-2" onClick="buy("+ index +")") #{item.Age}                 
+                 button.btn( class="btn-primary ml-1", onclick= destination) Update
+                
+    script. 
+        function dispatch(path){
+             window.location.href=path
+        }    
         function buy(itemNo)
         {
             alert(`You purchased item ${itemNo+1}`)
