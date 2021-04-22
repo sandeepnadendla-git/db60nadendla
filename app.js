@@ -3,6 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+passport.use(new LocalStrategy(
+  function (username, password, done) {
+    Account.findOne({ username: username }, function (err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect username.' });
+      }
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bearRouter = require('./routes/Bear');
@@ -10,6 +26,7 @@ var starsRouter = require('./routes/stars');
 var slotRouter = require('./routes/slot');
 var resourceRouter = require('./routes/resource');
 var Bear = require('./models/Bear');
+
 
 const connectionString = process.env.MONGO_CON
 mongoose = require('mongoose');
@@ -29,21 +46,21 @@ db.once("open", function () {
 async function recreateDB() {
   // Delete everything
   await Bear.deleteMany();
-  let instance1 = new Bear({Color: "White", Bread: 'Polar Bear', Age: 8  });
-  let instance2 = new Bear({Color: "Brown", Bread: 'Brown Bear', Age: 11  });
-  let instance3 = new Bear({Color: "Black", Bread: 'American Black Bear', Age: 10  });
+  let instance1 = new Bear({ Color: "White", Bread: 'Polar Bear', Age: 8 });
+  let instance2 = new Bear({ Color: "Brown", Bread: 'Brown Bear', Age: 11 });
+  let instance3 = new Bear({ Color: "Black", Bread: 'American Black Bear', Age: 10 });
   instance1.save(function (err, doc) {
-      if (err) return console.error(err);
-      console.log("First object saved")
+    if (err) return console.error(err);
+    console.log("First object saved")
   });
   instance2.save(function (err, doc) {
     if (err) return console.error(err);
     console.log("Second object saved")
-});
-instance3.save(function (err, doc) {
-  if (err) return console.error(err);
-  console.log("Third object saved")
-});
+  });
+  instance3.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Third object saved")
+  });
 }
 let reseed = true;
 if (reseed) {
@@ -62,6 +79,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -70,6 +94,14 @@ app.use('/Bear', bearRouter);
 app.use('/stars', starsRouter);
 app.use('/slot', slotRouter);
 app.use('/resource', resourceRouter);
+
+// passport config
+// Use the existing connection
+// The Account model
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

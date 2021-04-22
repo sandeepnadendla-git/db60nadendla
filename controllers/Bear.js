@@ -131,13 +131,13 @@ exports.Bear_create_Page = function (req, res) {
 
 // Handle building the view for updating a bear.
 // query provides the id
-exports.Bear_update_Page =  async function(req, res) {
-    console.log("update view for item "+req.query.id)
-    try{
+exports.Bear_update_Page = async function (req, res) {
+    console.log("update view for item " + req.query.id)
+    try {
         let result = await Bear.findById(req.query.id)
         res.render('Bearupdate', { title: 'Bear Update', toShow: result });
     }
-    catch(err){
+    catch (err) {
         res.status(500)
         res.send(`{'error': '${err}'}`);
     }
@@ -145,13 +145,13 @@ exports.Bear_update_Page =  async function(req, res) {
 
 
 // Handle a delete one view with id from query
-exports.Bear_delete_Page = async function(req, res) {
-    console.log("Delete view for id "  + req.query.id)
-    try{
+exports.Bear_delete_Page = async function (req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try {
         result = await Bear.findById(req.query.id)
         res.render('Beardelete', { title: 'Bear Delete', toShow: result });
     }
-    catch(err){
+    catch (err) {
         res.status(500)
         res.send(`{'error': '${err}'}`);
     }
