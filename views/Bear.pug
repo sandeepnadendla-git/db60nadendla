@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    - let Createclick = `dispatch(\"/Bear/create\")`
+    button.btn( class="btn-primary ml-1", onclick= Createclick) Create
     h1= title
     p Welcome to #{title}
     div(class="container-fluid")
@@ -10,10 +12,15 @@ block content
              console.log(Bear)
             each item,index in Bear
               - let destination = `dispatch(\"/Bear/update?id=${item._id}\")`
+              - let bearDetail = `dispatch(\"/Bear/detail/?id=${item._id}\")`
+              - let bearDelete = `dispatch(\"/Bear/delete/?id=${item._id}\")`  
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Color}
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Bread}
                 div(class="col-sm-2" onClick="buy("+ index +")") #{item.Age}                 
-                 button.btn( class="btn-primary ml-1", onclick= destination) Update
+                div(class="col-sm-6" )               
+                  button.btn( class="btn-primary ml-1", onclick= bearDetail) Detail
+                  button.btn( class="btn-primary ml-1", onclick= destination) Update
+                  button.btn( class="btn-primary ml-1", onclick= bearDelete) Delete
                 
     script. 
         function dispatch(path){

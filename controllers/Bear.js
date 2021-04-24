@@ -64,7 +64,7 @@ exports.Bear_create_post = async function (req, res) {
         let result = await document.save();
         res.send(result);
     } catch (err) {
-        res.error(500, `{"error": ${err}}`);
+        res.status(500).send(`{"error": ${err}}`);
     }
 };
 
@@ -81,8 +81,8 @@ exports.Bear_update_put = async function (req, res) {
         console.log("Sucess " + result)
         res.send(result)
     } catch (err) {
-        res.status(500)
-        res.send(`{"error": ${err}: Update for id ${req.params.id} failed`);
+        console.log(err.message)
+        res.status(500).send(err.message);
     }
 
 };
